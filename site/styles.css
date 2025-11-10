@@ -23,6 +23,7 @@ main{max-width:980px;margin:1rem auto;padding:0 1rem}
 #mapid{height:360px;border-radius:6px}
 .gallery{display:flex;gap:.5rem;flex-wrap:wrap}
 .gallery img{width:150px;height:100px;object-fit:cover;border-radius:6px}
+.no-image-thumb{width:150px;height:100px;border-radius:6px;background:linear-gradient(180deg,rgba(0,0,0,0.03),transparent);display:flex;align-items:center;justify-content:center;color:var(--muted);font-weight:600}
 .note{color:var(--muted);font-size:.9rem}
 #commit-form{display:flex;flex-direction:column;gap:.5rem}
 #commit{min-height:60px;padding:.5rem}
@@ -31,9 +32,10 @@ button:focus{outline:3px solid rgba(139,58,47,0.18);box-shadow:0 2px 8px rgba(13
 .site-footer{padding:1rem;text-align:center;color:var(--muted);font-size:.9rem}
 #quiz-root{padding:.5rem}
 .quiz-question{margin-bottom:.5rem}
-.quiz-options button{display:block;margin:0.3rem 0;padding:.4rem;border-radius:6px;border:1px solid #ddd;background:#fff}
+.quiz-options button{display:block;margin:0.3rem 0;padding:.4rem;border-radius:6px;border:1px solid #ddd;background:#fff;color:#222}
 .quiz-options button.quiz-correct{border-color:rgba(59,125,68,0.9);background:linear-gradient(180deg,rgba(59,125,68,0.06),transparent)}
-.quiz-options button.quiz-wrong{border-color:#d14b44;background:linear-gradient(180deg,rgba(209,75,68,0.06),transparent)}
+.quiz-options button.quiz-wrong{border-color:#d14b44;background:linear-gradient(180deg,rgba(209,75,68,0.06),transparent);color:#7a1f1a}
+.quiz-options button.quiz-correct{color:var(--deep)}
 .quiz-feedback{margin-top:.6rem;padding:.4rem;border-radius:6px;background:rgba(0,0,0,0.03)}
 
 .quiz-best{font-size:.9rem;color:var(--muted);margin-bottom:.4rem}
@@ -62,6 +64,7 @@ a:focus,button:focus,input:focus,textarea:focus{outline:3px solid rgba(59,125,68
 .people-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.6rem;max-height:420px;overflow:auto}
 .people-list li{display:flex;gap:.6rem;align-items:center;padding:.35rem;border-radius:6px;border:1px solid rgba(0,0,0,0.04);cursor:pointer}
 .people-list li img{width:56px;height:40px;object-fit:cover;border-radius:6px}
+.people-list .no-image{width:56px;height:40px;border-radius:6px;background:linear-gradient(180deg,rgba(0,0,0,0.02),transparent);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:12px;padding:.2rem}
 .people-list li:hover{background:linear-gradient(90deg,rgba(212,163,115,0.06),transparent)}
 .people-list li:focus{outline:3px solid rgba(59,125,68,0.12)}
 /* evitar sobreposição: garantir posicionamento estável e stacking simples */
@@ -75,6 +78,7 @@ a:focus,button:focus,input:focus,textarea:focus{outline:3px solid rgba(59,125,68
 .modal-close{position:absolute;right:10px;top:6px;background:transparent;border:none;font-size:1.4rem;cursor:pointer}
 .modal-gallery{display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center}
 .modal-gallery img{max-width:260px;height:auto;border-radius:6px}
+.modal-gallery .no-image-large{max-width:260px;height:160px;border-radius:6px;background:linear-gradient(180deg,rgba(0,0,0,0.03),transparent);display:flex;align-items:center;justify-content:center;color:var(--muted);font-weight:600}
 .modal-caption{margin-top:.6rem;color:var(--muted);text-align:center}
 
 /* debug-bar removida para versão pública; logs podem ser ativados com ?debug=1 */

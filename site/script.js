@@ -40,15 +40,15 @@ function initMap(povos){
   window._vt_markers = window._vt_markers || {};
   povos.forEach(p =>{
     const marker = L.marker([p.lat,p.lon]).addTo(map);
-    const firstImg = (p.imagens && p.imagens[0]) ? p.imagens[0] : '';
     const curios = p.curiosidade ? `<p><strong>Curiosidade:</strong> ${p.curiosidade}</p>` : '';
+    // removemos imagens do popup para este protótipo; mostramos apenas texto/legenda
     const html = `
       <div class="popup">
         <h3>${p.nome}</h3>
         <p><strong>Região:</strong> ${p.regiao} — <strong>Língua:</strong> ${p.lingua}</p>
         <p>${p.resumo}</p>
         ${curios}
-        ${firstImg ? `<img src="${firstImg}" alt="${p.nome}" style="width:100%;height:auto;border-radius:6px;margin-top:.4rem">` : ''}
+        <div class="no-image popup-no-image">Imagem removida neste protótipo</div>
         <p><button class="open-gallery" data-nome="${p.nome}">Abrir galeria</button></p>
       </div>`;
     marker.bindPopup(html);
@@ -62,27 +62,20 @@ function initMap(povos){
 function initGallery(povos){
   const g = document.getElementById('gallery');
   povos.slice(0,6).forEach(p =>{
-    const img = document.createElement('img');
-    img.src = p.imagens && p.imagens[0] ? p.imagens[0] : 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Placeholder_no_text.svg/800px-Placeholder_no_text.svg.png';
-    img.alt = p.nome;
-    img.loading = 'lazy';
-    img.addEventListener('error', ()=>{
-      img.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Placeholder_no_text.svg/800px-Placeholder_no_text.svg.png';
-      if(window._vt_stats){ window._vt_stats.imagesFailed++; updateDebug('images', `${window._vt_stats.imagesLoaded}/${window._vt_stats.totalImages} carregadas (${window._vt_stats.imagesFailed} falhas)`); }
-      if(window._vt_verbose) console.warn('[Vt] image error:', img.src, 'for', p.nome);
-    });
-    img.addEventListener('load', ()=>{ if(window._vt_stats){ window._vt_stats.imagesLoaded++; updateDebug('images', `${window._vt_stats.imagesLoaded}/${window._vt_stats.totalImages} carregadas`); } });
-    // Acessibilidade: permitir foco por teclado e aviso via SR
-    img.tabIndex = 0;
-    img.addEventListener('keydown', (e)=>{
-      if(e.key === 'Enter' || e.key === ' ') {
-        const live = document.getElementById('sr-live');
-        if(live) live.textContent = `${p.nome}: ${p.resumo}`;
-        e.preventDefault();
+    // substitui imagens por um bloco de texto (imagem removida)
+    const thumb = document.createElement('div');
+    thumb.className = 'no-image-thumb';
+    thumb.tabIndex = 0;
+    thumb.setAttribute('role','img');
+    thumb.setAttribute('aria-label', `${p.nome} — imagem removida`);
+    thumb.textContent = p.nome;
+    thumb.addEventListener('keydown', (e)=>{
+      if(e.key === 'Enter' || e.key === ' '){
+        const live = document.getElementById('sr-live'); if(live) live.textContent = `${p.nome}: ${p.resumo}`; e.preventDefault();
       }
     });
-    g.appendChild(img);
-    if(window._vt_verbose) console.log('[Vt] gallery thumb added for', p.nome, img.src);
+    g.appendChild(thumb);
+    if(window._vt_verbose) console.log('[Vt] gallery thumb added for', p.nome);
   });
 }
 
@@ -199,10 +192,8 @@ function initSidebar(povos, map){
   povos.forEach((p,i)=>{
     const li = document.createElement('li');
     li.tabIndex = 0;
-    const img = document.createElement('img'); img.src = p.imagens && p.imagens[0] ? p.imagens[0] : '';
-    img.loading = 'lazy';
-    img.addEventListener('error', ()=>{ img.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Placeholder_no_text.svg/800px-Placeholder_no_text.svg.png'; if(window._vt_stats){ window._vt_stats.imagesFailed++; updateDebug('images', `${window._vt_stats.imagesLoaded}/${window._vt_stats.totalImages} carregadas (${window._vt_stats.imagesFailed} falhas)`); } });
-    img.addEventListener('load', ()=>{ if(window._vt_stats){ window._vt_stats.imagesLoaded++; updateDebug('images', `${window._vt_stats.imagesLoaded}/${window._vt_stats.totalImages} carregadas`); } });
+    // inserir placeholder textual no lugar da imagem
+    const img = document.createElement('div'); img.className = 'no-image'; img.textContent = p.nome;
   const div = document.createElement('div');
   // mostrar resumo curto e curiosidade se existir
   const short = p.curiosidade ? `<div class="muted small">${p.curiosidade}</div>` : `<div class="muted small">${p.resumo}</div>`;
