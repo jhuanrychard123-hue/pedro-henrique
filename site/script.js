@@ -111,11 +111,20 @@ function initQuiz(){
   let idx=0,score=0;
   function render(){
     root.innerHTML='';
-    // mostrar melhor pontuação salva (se houver)
+    // mostrar melhor pontuação salva (se houver) e botão para limpar
     const bestKey = 'vt_quiz_best';
     const bestSaved = parseInt(localStorage.getItem(bestKey)) || 0;
+    const bestWrap = document.createElement('div'); bestWrap.className = 'quiz-best-wrap';
     const bestEl = document.createElement('div'); bestEl.className = 'quiz-best'; bestEl.textContent = bestSaved ? `Melhor: ${bestSaved}/${questions.length}` : 'Melhor: —';
-    root.appendChild(bestEl);
+    const clearBtn = document.createElement('button'); clearBtn.type = 'button'; clearBtn.className = 'quiz-clear-btn'; clearBtn.textContent = 'Limpar recorde';
+    clearBtn.addEventListener('click', ()=>{
+      try{ localStorage.removeItem(bestKey); bestEl.textContent = 'Melhor: —'; clearBtn.disabled = true; }
+      catch(e){ if(window._vt_verbose) console.warn('clear best failed',e); }
+    });
+    if(!bestSaved) clearBtn.disabled = true;
+    bestWrap.appendChild(bestEl);
+    bestWrap.appendChild(clearBtn);
+    root.appendChild(bestWrap);
     const Q = questions[idx];
     const h = document.createElement('div'); h.className='quiz-question'; h.textContent = Q.q; root.appendChild(h);
     const opts = document.createElement('div'); opts.className='quiz-options';
@@ -166,6 +175,14 @@ function initQuiz(){
         bestMsg.textContent = `Melhor até agora: ${prev}/${questions.length}`;
       }
       root.appendChild(bestMsg);
+      // adicionar botão para limpar recorde também na tela final
+      const clr = document.createElement('button'); clr.type = 'button'; clr.className = 'quiz-clear-btn'; clr.textContent = 'Limpar recorde';
+      clr.addEventListener('click', ()=>{
+        try{ localStorage.removeItem(bestKey); clr.disabled = true; if(bestMsg) bestMsg.textContent = 'Melhor: —'; }
+        catch(e){ if(window._vt_verbose) console.warn('clear best failed',e); }
+      });
+      // só habilita se existia um recorde
+      if(prev) root.appendChild(clr); else clr.disabled = true;
     }catch(e){ if(window._vt_verbose) console.warn('localStorage not available', e); }
 
     const replay = document.createElement('button'); replay.textContent = 'Repetir quiz';
