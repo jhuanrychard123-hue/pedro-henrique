@@ -237,8 +237,40 @@ function initModal(){
   updateDebug('map','OK');
   initGallery(povos);
   initCommitForm();
+  // preencher texto e dados em 'Cultura' e 'História'
+  try{ renderCultureAndSummary(povos); }catch(e){ if(window._vt_verbose) console.warn('renderCultureAndSummary failed',e); }
   initQuiz();
   updateDebug('quiz','OK');
   initSidebar(povos, map);
   initModal();
 })();
+
+// Renderiza o texto (3 parágrafos) sobre povos indígenas e o resumo de dados
+function renderCultureAndSummary(povos){
+  const cultura = document.getElementById('cultura-text');
+  const summary = document.getElementById('data-summary');
+  if(cultura){
+    cultura.innerHTML = `
+      <p>Os povos indígenas do Brasil formam uma imensa diversidade de nações, línguas e modos de vida. Cada povo detém saberes próprios sobre o ambiente, práticas comunitárias e cosmologias que se transmitem por gerações através da oralidade, cerimoniais e do trabalho coletivo. Esses conhecimentos tradicionais incluem manejo de plantas, técnicas agrícolas, tecelagem e manifestações artísticas.</p>
+      <p>A história desses povos é marcada por longa ocupação dos territórios, e também por resistências às pressões externas desde a colonização até os dias atuais. Muitos grupos mantêm ritos, línguas e instituições próprias, enquanto lutam por reconhecimento de terras e por políticas que respeitem suas formas de organização. A revitalização cultural e a busca por direitos passam pelo protagonismo das próprias comunidades.</p>
+      <p>Este protótipo tem fins educativos e usa textos e imagens de exemplo. Antes de publicar materiais reais, é essencial obter autorização das comunidades, respeitar direitos sobre imagens e saberes, e reconhecer créditos culturais. Apoiar iniciativas de educação bilíngue e projetos comunitários é uma forma concreta de colaboração.</p>
+    `;
+  }
+  if(summary){
+    const total = povos.length;
+    const langs = new Set(povos.map(p=> (p.lingua||'').trim())).size;
+    const regions = new Set(povos.map(p=> (p.regiao||'').split(/[;,\/]/)[0].trim())).size;
+    const imgs = povos.reduce((acc,p)=> acc + ((p.imagens && p.imagens.length) || 0), 0);
+    summary.innerHTML = `
+      <div class="card small">
+        <strong>Resumo de dados</strong>
+        <ul>
+          <li>Total de povos no protótipo: <strong>${total}</strong></li>
+          <li>Idiomas representados: <strong>${langs}</strong></li>
+          <li>Regiões aproximadas: <strong>${regions}</strong></li>
+          <li>Imagens (placeholders): <strong>${imgs}</strong></li>
+        </ul>
+      </div>
+    `;
+  }
+}
