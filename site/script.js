@@ -111,6 +111,11 @@ function initQuiz(){
   let idx=0,score=0;
   function render(){
     root.innerHTML='';
+    // mostrar melhor pontuação salva (se houver)
+    const bestKey = 'vt_quiz_best';
+    const bestSaved = parseInt(localStorage.getItem(bestKey)) || 0;
+    const bestEl = document.createElement('div'); bestEl.className = 'quiz-best'; bestEl.textContent = bestSaved ? `Melhor: ${bestSaved}/${questions.length}` : 'Melhor: —';
+    root.appendChild(bestEl);
     const Q = questions[idx];
     const h = document.createElement('div'); h.className='quiz-question'; h.textContent = Q.q; root.appendChild(h);
     const opts = document.createElement('div'); opts.className='quiz-options';
@@ -147,7 +152,22 @@ function initQuiz(){
     root.appendChild(opts);
   }
   function finish(){
-    root.innerHTML = `<p>Fim! Sua pontuação: ${score}/${questions.length}</p>`;
+    root.innerHTML = '';
+    const p = document.createElement('p'); p.innerHTML = `Fim! Sua pontuação: <strong>${score}/${questions.length}</strong>`; root.appendChild(p);
+    // salvar melhor pontuação em localStorage
+    try{
+      const bestKey = 'vt_quiz_best';
+      const prev = parseInt(localStorage.getItem(bestKey)) || 0;
+      let bestMsg = document.createElement('div'); bestMsg.className = 'quiz-best-msg';
+      if(score > prev){
+        localStorage.setItem(bestKey, String(score));
+        bestMsg.textContent = `Novo recorde! Melhor: ${score}/${questions.length}`;
+      }else{
+        bestMsg.textContent = `Melhor até agora: ${prev}/${questions.length}`;
+      }
+      root.appendChild(bestMsg);
+    }catch(e){ if(window._vt_verbose) console.warn('localStorage not available', e); }
+
     const replay = document.createElement('button'); replay.textContent = 'Repetir quiz';
     replay.addEventListener('click', ()=>{ idx=0; score=0; render(); });
     root.appendChild(replay);
