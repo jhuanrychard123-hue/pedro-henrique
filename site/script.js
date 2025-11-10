@@ -39,11 +39,13 @@ function initMap(povos){
   povos.forEach(p =>{
     const marker = L.marker([p.lat,p.lon]).addTo(map);
     const firstImg = (p.imagens && p.imagens[0]) ? p.imagens[0] : '';
+    const curios = p.curiosidade ? `<p><strong>Curiosidade:</strong> ${p.curiosidade}</p>` : '';
     const html = `
       <div class="popup">
         <h3>${p.nome}</h3>
         <p><strong>Região:</strong> ${p.regiao} — <strong>Língua:</strong> ${p.lingua}</p>
         <p>${p.resumo}</p>
+        ${curios}
         ${firstImg ? `<img src="${firstImg}" alt="${p.nome}" style="width:100%;height:auto;border-radius:6px;margin-top:.4rem">` : ''}
         <p><button class="open-gallery" data-nome="${p.nome}">Abrir galeria</button></p>
       </div>`;
@@ -109,10 +111,24 @@ function initQuiz(){
     const h = document.createElement('div'); h.className='quiz-question'; h.textContent = Q.q; root.appendChild(h);
     const opts = document.createElement('div'); opts.className='quiz-options';
     Q.options.forEach((o,i)=>{
-      const b = document.createElement('button'); b.textContent = o; b.addEventListener('click', ()=>{
-        if(i===Q.a) score++;
-        idx++;
-        if(idx<questions.length) render(); else finish();
+      const b = document.createElement('button'); b.textContent = o; b.disabled = false;
+      b.addEventListener('click', ()=>{
+        const correct = (i===Q.a);
+        if(correct) score++;
+        // desativa opções
+        Array.from(opts.querySelectorAll('button')).forEach(bb=> bb.disabled = true);
+        // feedback
+        const fb = document.createElement('div'); fb.className = 'quiz-feedback'; fb.setAttribute('aria-live','polite');
+        fb.textContent = correct ? 'Correto! ' : 'Errado. ';
+        fb.textContent += `Resposta: ${Q.options[Q.a]}`;
+        root.appendChild(fb);
+        // botão próxima
+        const next = document.createElement('button'); next.textContent = (idx+1<questions.length) ? 'Próxima' : 'Finalizar';
+        next.addEventListener('click', ()=>{
+          idx++;
+          if(idx<questions.length) render(); else finish();
+        });
+        root.appendChild(next);
       });
       opts.appendChild(b);
     });
@@ -120,6 +136,9 @@ function initQuiz(){
   }
   function finish(){
     root.innerHTML = `<p>Fim! Sua pontuação: ${score}/${questions.length}</p>`;
+    const replay = document.createElement('button'); replay.textContent = 'Repetir quiz';
+    replay.addEventListener('click', ()=>{ idx=0; score=0; render(); });
+    root.appendChild(replay);
   }
   render();
 }
@@ -133,8 +152,10 @@ function initSidebar(povos, map){
     img.loading = 'lazy';
     img.addEventListener('error', ()=>{ img.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Placeholder_no_text.svg/800px-Placeholder_no_text.svg.png'; if(window._vt_stats){ window._vt_stats.imagesFailed++; updateDebug('images', `${window._vt_stats.imagesLoaded}/${window._vt_stats.totalImages} carregadas (${window._vt_stats.imagesFailed} falhas)`); } });
     img.addEventListener('load', ()=>{ if(window._vt_stats){ window._vt_stats.imagesLoaded++; updateDebug('images', `${window._vt_stats.imagesLoaded}/${window._vt_stats.totalImages} carregadas`); } });
-    const div = document.createElement('div');
-    div.innerHTML = `<strong>${p.nome}</strong><br><span class="muted">${p.regiao}</span>`;
+  const div = document.createElement('div');
+  // mostrar resumo curto e curiosidade se existir
+  const short = p.curiosidade ? `<div class="muted small">${p.curiosidade}</div>` : `<div class="muted small">${p.resumo}</div>`;
+  div.innerHTML = `<strong>${p.nome}</strong><br><span class="muted">${p.regiao}</span>${short}`;
     li.appendChild(img); li.appendChild(div);
     li.addEventListener('click', ()=>{
       map.setView([p.lat,p.lon],6);

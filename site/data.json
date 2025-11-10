@@ -1,0 +1,171 @@
+{
+  "povos":[
+    {
+      "nome":"Guarani",
+      "regiao":"Sul/Sudeste",
+      "lingua":"Tupi-Guarani",
+      "lat":-23.5505,
+      "lon":-46.6333,
+      "resumo":"Povos Guarani vivem em diversas áreas do Sul e Sudeste; rica tradição oral e rituais.",
+      "imagens":[
+        "img/guarani.png",
+        "img/guarani.png"
+      ],
+      "caption":"Comunidade Guarani — imagem exemplar",
+      "credit":"Placeholder artístico — não é imagem de uso comunitário"
+    },
+    {
+      "nome":"Yanomami",
+      "regiao":"Norte (Amazonas/Roraima)",
+      "lingua":"Yanomami",
+      "lat":1.4558,
+      "lon":-61.0879,
+      "resumo":"Grande povo amazônico; posse sobre territórios e proteção ambiental são temas centrais.",
+      "imagens":[
+        "img/yanomami.png",
+        "img/yanomami.png"
+      ],
+      "caption":"Representação Yanomami — imagem exemplar",
+      "credit":"Placeholder artístico — não é imagem de uso comunitário"
+    },
+    {
+      "nome":"Tikuna",
+      "regiao":"Alto Solimões (AM)",
+      "lingua":"Tikuna",
+      "lat":-3.1190,
+      "lon":-60.0217,
+      "resumo":"Povo do Alto Solimões com cultura própria e tradições de rituais e artesanato.",
+      "imagens":[
+        "img/tikuna.png",
+        "img/tikuna.png"
+      ],
+      "caption":"Representação Tikuna — imagem exemplar",
+      "credit":"Placeholder artístico — não é imagem de uso comunitário"
+    },
+    {
+      "nome":"Kaingang",
+      "regiao":"Sul (Paraná/Santa Catarina)",
+      "lingua":"Kaingang",
+      "lat":-25.4284,
+      "lon":-49.2733,
+      "resumo":"Povo do sul do Brasil com forte presença em territórios rurais e lutas por reconhecimento.",
+      "imagens":[
+        "img/kaingang.png",
+        "img/kaingang.png"
+      ],
+      "caption":"Representação Kaingang — imagem exemplar",
+      "credit":"Placeholder artístico — não é imagem de uso comunitário"
+    },
+    {
+      "nome":"Pataxó",
+      "regiao":"Litoral (Bahia)",
+      "lingua":"Pataxó",
+      "lat":-16.4433,
+      "lon":-39.0482,
+      "resumo":"Povo do litoral da Bahia com revitalização cultural e projetos comunitários.",
+      "imagens":[
+        "img/pataxo.png",
+        "img/pataxo.png"
+      ],
+      "caption":"Representação Pataxó — imagem exemplar",
+      "credit":"Placeholder artístico — não é imagem de uso comunitário"
+    }
+    ,
+    {
+      "nome":"Xavante",
+      "regiao":"Centro-Oeste",
+      "lingua":"Araweté (Xavante)",
+      "lat":-13.3865,
+      "lon":-52.4576,
+      "resumo":"Povo do Centro-Oeste conhecido por rituais coletivos e organização social distinta.",
+      "curiosidade":"Os Xavante têm rituais de iniciação que são centrais para a transmissão de valores sociais.",
+      "imagens":["img/guarani.png"],
+      "caption":"Representação Xavante — imagem exemplar",
+      "credit":"Placeholder artístico"
+    },
+    {
+      "nome":"Krahô",
+      "regiao":"Tocantins",
+      "lingua":"Tupi-Guarani",
+      "lat":-8.7832,
+      "lon":-49.0007,
+      "resumo":"Povo do Cerrado com forte tradição em artesanato e cerimonial.",
+      "curiosidade":"Krahô mantêm festas cerimoniais que envolvem canto e dança por vários dias.",
+      "imagens":["img/guarani.png"],
+      "caption":"Representação Krahô — imagem exemplar",
+      "credit":"Placeholder artístico"
+    },
+    {
+      "nome":"Huni Kuin (Kaxinawá)",
+      "regiao":"Acre/Rondônia",
+      "lingua":"Huni Kuin",
+      "lat":-8.7600,
+      "lon":-70.8160,
+      "resumo":"Povo amazônico com ricas tradições de canto e uso de plantas medicinais.",
+      "curiosidade":"O canto xapiri é usado em rituais de cura e conexão com a natureza.",
+      "imagens":["img/guarani.png"],
+      "caption":"Representação Huni Kuin — imagem exemplar",
+      "credit":"Placeholder artístico"
+    },
+    {
+      "nome":"Makuxi",
+      "regiao":"Roraima",
+      "lingua":"Makuxi",
+      "lat":2.0000,
+      "lon":-60.7000,
+      "resumo":"Povo do Norte, com forte ligação a ecossistemas locais e saberes tradicionais.",
+      "curiosidade":"Makuxi mantêm sistemas de rotação de cultivo adaptados ao clima local.",
+      "imagens":["img/guarani.png"],
+      "caption":"Representação Makuxi — imagem exemplar",
+      "credit":"Placeholder artístico"
+    },
+    {
+      "nome":"Waimiri-Atroari",
+      "regiao":"Norte (Roraima/Amazonas)",
+      "lingua":"Waimiri-Atroari",
+      "lat":-1.9000,
+      "lon":-60.7000,
+      "resumo":"Povo do Norte com tradição de uso territorial e resistências históricas.",
+      "curiosidade":"O conhecimento de fauna e flora do Waimiri é usado em práticas sustentáveis locais.",
+      "imagens":["img/guarani.png"],
+      "caption":"Representação Waimiri-Atroari — imagem exemplar",
+      "credit":"Placeholder artístico"
+    },
+    {
+      "nome":"Terena",
+      "regiao":"Mato Grosso do Sul",
+      "lingua":"Terena",
+      "lat":-20.4697,
+      "lon":-54.6201,
+      "resumo":"Povo do Centro-Oeste com presença em áreas rurais e urbanas.",
+      "curiosidade":"Os Terena têm práticas agrícolas e festas ligadas ao ciclo das estações.",
+      "imagens":["img/guarani.png"],
+      "caption":"Representação Terena — imagem exemplar",
+      "credit":"Placeholder artístico"
+    },
+    {
+      "nome":"Ashaninka",
+      "regiao":"Acre/Juruti",
+      "lingua":"Ashaninka",
+      "lat":-8.5000,
+      "lon":-72.0000,
+      "resumo":"Povo amazônico com rica tradição em tecelagem e conhecimento medicinal.",
+      "curiosidade":"As tecelagens Ashaninka são reconhecidas por padrões e pigmentos naturais.",
+      "imagens":["img/guarani.png"],
+      "caption":"Representação Ashaninka — imagem exemplar",
+      "credit":"Placeholder artístico"
+    },
+    {
+      "nome":"Suruí",
+      "regiao":"Rondônia",
+      "lingua":"Suruí",
+      "lat":-10.5000,
+      "lon":-62.0000,
+      "resumo":"Povo de Rondônia com iniciativas de manejo florestal comunitário.",
+      "curiosidade":"Os Suruí desenvolveram projetos de monitoramento ambiental com tecnologia satelital.",
+      "imagens":["img/guarani.png"],
+      "caption":"Representação Suruí — imagem exemplar",
+      "credit":"Placeholder artístico"
+    }
+  ]
+}
