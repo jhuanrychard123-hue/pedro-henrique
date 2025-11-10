@@ -71,3 +71,22 @@ a:focus,button:focus,input:focus,textarea:focus{outline:3px solid rgba(59,125,68
 .debug-bar{display:flex;gap:.8rem;align-items:center;padding:.5rem 1rem;background:linear-gradient(180deg,rgba(226,214,196,0.6),rgba(255,255,255,0.6));border-radius:8px;margin:1rem;box-shadow:0 2px 6px rgba(0,0,0,0.04);font-size:.95rem}
 .debug-bar span{color:var(--deep);padding:.15rem .4rem;border-left:1px solid rgba(0,0,0,0.04)}
 .debug-bar span[data-key="data"]{border-left:none}
+
+/* Estilo para resumo de dados e referências */
+.data-summary .card.small{padding:.6rem;background:linear-gradient(180deg,rgba(216,200,180,0.06),transparent);border-radius:6px}
+.data-summary ul{list-style:none;padding:0;margin:.5rem 0}
+.data-summary li{display:flex;align-items:center;gap:.6rem;padding:.25rem 0;border-bottom:1px dashed rgba(0,0,0,0.04)}
+.data-summary li:last-child{border-bottom:none}
+.data-summary .icon{width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;border-radius:6px;background:rgba(59,125,68,0.06);font-size:16px}
+.data-summary .label{color:var(--muted)}
+
+.references{margin-top:.6rem}
+.references ul{list-style:none;padding:0;margin:0}
+.references li{margin:0.25rem 0}
+.references a{color:var(--deep);text-decoration:none}
+.references a:hover{text-decoration:underline}
+
+@media (max-width:900px){
+  .data-summary .card.small{display:flex;flex-direction:row;gap:1rem;align-items:center}
+  .data-summary ul{margin:0}
+}

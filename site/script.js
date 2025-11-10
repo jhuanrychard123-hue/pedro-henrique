@@ -265,10 +265,10 @@ function renderCultureAndSummary(povos){
       <div class="card small">
         <strong>Resumo de dados</strong>
         <ul>
-          <li>Total de povos no protótipo: <strong>${total}</strong></li>
-          <li>Idiomas representados: <strong>${langs}</strong></li>
-          <li>Regiões aproximadas: <strong>${regions}</strong></li>
-          <li>Imagens (placeholders): <strong>${imgs}</strong></li>
+          <li><span class="icon">👥</span><span class="label">Total de povos no protótipo:</span> <strong>${total}</strong></li>
+          <li><span class="icon">🗣️</span><span class="label">Idiomas representados:</span> <strong>${langs}</strong></li>
+          <li><span class="icon">📍</span><span class="label">Regiões aproximadas:</span> <strong>${regions}</strong></li>
+          <li><span class="icon">🖼️</span><span class="label">Imagens (placeholders):</span> <strong>${imgs}</strong></li>
         </ul>
       </div>
     `;
