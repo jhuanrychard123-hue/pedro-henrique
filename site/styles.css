@@ -67,10 +67,7 @@ a:focus,button:focus,input:focus,textarea:focus{outline:3px solid rgba(59,125,68
 .modal-gallery img{max-width:260px;height:auto;border-radius:6px}
 .modal-caption{margin-top:.6rem;color:var(--muted);text-align:center}
 
-/* barra de debug (apenas no protótipo) */
-.debug-bar{display:flex;gap:.8rem;align-items:center;padding:.5rem 1rem;background:linear-gradient(180deg,rgba(226,214,196,0.6),rgba(255,255,255,0.6));border-radius:8px;margin:1rem;box-shadow:0 2px 6px rgba(0,0,0,0.04);font-size:.95rem}
-.debug-bar span{color:var(--deep);padding:.15rem .4rem;border-left:1px solid rgba(0,0,0,0.04)}
-.debug-bar span[data-key="data"]{border-left:none}
+/* debug-bar removida para versão pública; logs podem ser ativados com ?debug=1 */
 
 /* Estilo para resumo de dados e referências */
 .data-summary .card.small{padding:.6rem;background:linear-gradient(180deg,rgba(216,200,180,0.06),transparent);border-radius:6px}

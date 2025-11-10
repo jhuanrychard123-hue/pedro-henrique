@@ -8,8 +8,8 @@ async function loadData(){
     const totalImages = povos.reduce((acc,p)=> acc + ((p.imagens && p.imagens.length) || 0), 0);
     window._vt_stats = { totalPovos: povos.length, totalImages: totalImages, imagesLoaded:0, imagesFailed:0 };
     updateDebug('data', `${povos.length} povos; ${totalImages} imagens esperadas`);
-    // habilitar logs verbosos se debug-bar existir ou ?debug=1
-    window._vt_verbose = !!document.getElementById('debug') || /[?&]debug=1/.test(location.search);
+  // habilitar logs verbosos apenas com ?debug=1 para não poluir a versão pública
+  window._vt_verbose = /[?&]debug=1/.test(location.search);
     if(window._vt_verbose) console.log('[Vt] loadData:', window._vt_stats);
     updateDebug('images', `${window._vt_stats.imagesLoaded}/${window._vt_stats.totalImages} carregadas`);
     return povos;
