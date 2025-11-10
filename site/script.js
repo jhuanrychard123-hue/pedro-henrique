@@ -115,7 +115,8 @@ function initQuiz(){
     const h = document.createElement('div'); h.className='quiz-question'; h.textContent = Q.q; root.appendChild(h);
     const opts = document.createElement('div'); opts.className='quiz-options';
     Q.options.forEach((o,i)=>{
-      const b = document.createElement('button'); b.textContent = o; b.disabled = false;
+      const letter = String.fromCharCode(97 + i); // 'a', 'b', 'c'
+      const b = document.createElement('button'); b.textContent = `${letter}) ${o}`; b.disabled = false;
       b.addEventListener('click', ()=>{
         const correct = (i===Q.a);
         if(correct) score++;
@@ -123,8 +124,9 @@ function initQuiz(){
         Array.from(opts.querySelectorAll('button')).forEach(bb=> bb.disabled = true);
         // feedback
         const fb = document.createElement('div'); fb.className = 'quiz-feedback'; fb.setAttribute('aria-live','polite');
+        const correctLetter = String.fromCharCode(97 + Q.a);
         fb.textContent = correct ? 'Correto! ' : 'Errado. ';
-        fb.textContent += `Resposta: ${Q.options[Q.a]}`;
+        fb.textContent += `Resposta: (${correctLetter}) ${Q.options[Q.a]}`;
         root.appendChild(fb);
         // botão próxima
         const next = document.createElement('button'); next.textContent = (idx+1<questions.length) ? 'Próxima' : 'Finalizar';
