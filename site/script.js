@@ -36,6 +36,8 @@ function initMap(povos){
   }).addTo(map);
   if(window._vt_verbose) console.log('[Vt] initMap: mapa criado, adicionando marcadores...');
 
+  // registrar marcadores para acesso posterior pelo nome
+  window._vt_markers = window._vt_markers || {};
   povos.forEach(p =>{
     const marker = L.marker([p.lat,p.lon]).addTo(map);
     const firstImg = (p.imagens && p.imagens[0]) ? p.imagens[0] : '';
@@ -50,6 +52,8 @@ function initMap(povos){
         <p><button class="open-gallery" data-nome="${p.nome}">Abrir galeria</button></p>
       </div>`;
     marker.bindPopup(html);
+    // registrar por nome (uso seguro: nomes únicos no protótipo)
+    try{ window._vt_markers[p.nome] = marker; }catch(e){}
     if(window._vt_verbose) console.log(`[Vt] marker: ${p.nome} @ ${p.lat},${p.lon} (img:${!!firstImg})`);
   });
   return map;
@@ -145,6 +149,8 @@ function initQuiz(){
 
 function initSidebar(povos, map){
   const list = document.getElementById('people-list');
+  // limpar conteúdo anterior para evitar duplicação/overlap
+  list.innerHTML = '';
   povos.forEach((p,i)=>{
     const li = document.createElement('li');
     li.tabIndex = 0;
@@ -159,12 +165,18 @@ function initSidebar(povos, map){
     li.appendChild(img); li.appendChild(div);
     li.addEventListener('click', ()=>{
       map.setView([p.lat,p.lon],6);
-      // abrir popup do marker correspondente via busca simples
-      const layers = map._layers;
-      for(const id in layers){
-        const lay = layers[id];
-        if(lay && lay.getLatLng && lay.getLatLng().lat===p.lat && lay.getLatLng().lng===p.lon){
-          lay.openPopup(); break;
+      // abrir popup do marker via referência direta (mais confiável)
+      try{
+        const m = window._vt_markers && window._vt_markers[p.nome];
+        if(m && m.openPopup) m.openPopup();
+      }catch(e){
+        // fallback: varrer camadas (compatibilidade antiga)
+        const layers = map._layers;
+        for(const id in layers){
+          const lay = layers[id];
+          if(lay && lay.getLatLng && lay.getLatLng().lat===p.lat && lay.getLatLng().lng===p.lon){
+            lay.openPopup(); break;
+          }
         }
       }
     });
