@@ -32,6 +32,9 @@ button:focus{outline:3px solid rgba(139,58,47,0.18);box-shadow:0 2px 8px rgba(13
 #quiz-root{padding:.5rem}
 .quiz-question{margin-bottom:.5rem}
 .quiz-options button{display:block;margin:0.3rem 0;padding:.4rem;border-radius:6px;border:1px solid #ddd;background:#fff}
+.quiz-options button.quiz-correct{border-color:rgba(59,125,68,0.9);background:linear-gradient(180deg,rgba(59,125,68,0.06),transparent)}
+.quiz-options button.quiz-wrong{border-color:#d14b44;background:linear-gradient(180deg,rgba(209,75,68,0.06),transparent)}
+.quiz-feedback{margin-top:.6rem;padding:.4rem;border-radius:6px;background:rgba(0,0,0,0.03)}
 @media (max-width:600px){.gallery img{width:48%;height:90px}}
 
 /* acessibilidade: foco visível para elementos interativos */

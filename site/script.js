@@ -117,12 +117,18 @@ function initQuiz(){
     Q.options.forEach((o,i)=>{
       const letter = String.fromCharCode(97 + i); // 'a', 'b', 'c'
       const b = document.createElement('button'); b.textContent = `${letter}) ${o}`; b.disabled = false;
+      b.dataset.index = i;
       b.addEventListener('click', ()=>{
         const correct = (i===Q.a);
         if(correct) score++;
-        // desativa opções
-        Array.from(opts.querySelectorAll('button')).forEach(bb=> bb.disabled = true);
-        // feedback
+        // desativa opções e aplica classes visuais: marca a correta e, se aplicável, a errada clicada
+        Array.from(opts.querySelectorAll('button')).forEach(bb=>{
+          const bi = parseInt(bb.dataset.index,10);
+          bb.disabled = true;
+          if(bi === Q.a) bb.classList.add('quiz-correct');
+          if(bb === b && bi !== Q.a) bb.classList.add('quiz-wrong');
+        });
+        // feedback textual (leitores de tela)
         const fb = document.createElement('div'); fb.className = 'quiz-feedback'; fb.setAttribute('aria-live','polite');
         const correctLetter = String.fromCharCode(97 + Q.a);
         fb.textContent = correct ? 'Correto! ' : 'Errado. ';
