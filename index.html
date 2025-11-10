@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Vozes da Terra — Protótipo</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Leaflet CSS (sem integrity para evitar bloqueios no protótipo) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+  <a class="skip-link" href="#mapid">Pular para o conteúdo</a>
+  <div id="sr-live" aria-live="polite" class="sr-only"></div>
+  <header class="site-header">
+    <h1>Vozes da Terra</h1>
+    <p class="subtitle">Protótipo educativo — mapa interativo e conteúdo de exemplo</p>
+    <nav>
+      <a href="#map">Início</a>
+      <a href="#cultura">Cultura</a>
+      <a href="#historia">História</a>
+      <a href="#aprenda">Aprenda</a>
+      <a href="#quiz">Interativo</a>
+    </nav>
+  </header>
+
+  <!-- Debug/status bar (apenas para desenvolvimento do protótipo) -->
+  <div id="debug" class="debug-bar" role="status" aria-live="polite">
+    <strong>Status:</strong>
+    <span data-key="data">Carregando dados...</span>
+    <span data-key="map">Mapa: —</span>
+    <span data-key="images">Imagens: —</span>
+    <span data-key="quiz">Quiz: —</span>
+  </div>
+
+  <main>
+    <div class="layout">
+    <section id="map" class="card">
+      <h2>Mapa interativo</h2>
+      <div id="mapid"></div>
+      <p class="note">Clique nos pontos para saber mais sobre cada povo (dados de exemplo).</p>
+    </section>
+
+      <aside id="sidebar" class="card" aria-label="Lista de povos">
+        <h2>Povos</h2>
+        <ul id="people-list" class="people-list"></ul>
+      </aside>
+    </div>
+
+    <section id="cultura" class="card" role="region" aria-label="Cultura e Tradições">
+      <h2>Cultura e Tradições</h2>
+      <div class="gallery" id="gallery">
+        <!-- imagens de exemplo -->
+      </div>
+      <p>Pequenos áudios e vídeos podem ser adicionados aqui. Neste protótipo usamos imagens de domínio público ou placeholders.</p>
+    </section>
+
+    
+    <section id="historia" class="card" role="region" aria-label="História e Atualidade">
+      <h2>História e Atualidade</h2>
+      <p>Uma linha do tempo interativa pode ser implementada aqui; para o protótipo temos um resumo cronológico com destaques.</p>
+      <ul>
+        <li><strong>Antes:</strong> sociedades diversas, territórios e línguas.</li>
+        <li><strong>Colonização:</strong> impactos e transformações.</li>
+        <li><strong>Hoje:</strong> lutas por direitos, territórios e revitalização cultural.</li>
+      </ul>
+    </section>
+
+    <section id="aprenda" class="card" role="region" aria-label="Aprenda e Apoie">
+      <h2>Aprenda e Apoie</h2>
+      <p>Recursos educativos e links para organizações. Espaço para mensagens de respeito e compromissos (ex.: "Eu me comprometo a valorizar as línguas indígenas").</p>
+      <form id="commit-form">
+        <label for="commit">Deixe um compromisso de respeito (máx 140 caracteres)</label>
+        <textarea id="commit" maxlength="140" placeholder="Eu me comprometo a..."></textarea>
+        <button type="submit">Enviar</button>
+      </form>
+      <ul id="commit-list"></ul>
+    </section>
+
+    <section id="quiz" class="card" role="region" aria-label="Área Interativa - Quiz">
+      <h2>Mini-quiz: Descubra o povo</h2>
+      <div id="quiz-root"></div>
+    </section>
+
+  </main>
+
+  <aside class="card credits" aria-label="Créditos e ética">
+    <h3>Créditos e ética</h3>
+    <p>Este é um protótipo educacional com imagens e textos de exemplo. Antes de publicar, obtenha autorização das comunidades e use imagens com licenças adequadas. Indique sempre créditos culturais e contatos locais.</p>
+    <p>Fontes de imagem (exemplo): Wikipedia Commons — checar licenças originais.</p>
+  </aside>
+
+  <footer class="site-footer">
+    <p>Protótipo educacional — imagens e textos de exemplo. Sempre buscar autorização das comunidades para uso real.</p>
+  </footer>
+
+  <!-- Modal simples para galeria -->
+  <div id="gallery-modal" class="modal" aria-hidden="true">
+    <div class="modal-content" role="dialog" aria-modal="true" aria-label="Galeria de imagens">
+      <button id="modal-close" class="modal-close" aria-label="Fechar galeria">×</button>
+      <div id="modal-gallery" class="modal-gallery"></div>
+      <p id="modal-caption" class="modal-caption"></p>
+    </div>
+  </div>
+
+  <!-- Leaflet JS (sem integrity para evitar bloqueios no protótipo) -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
