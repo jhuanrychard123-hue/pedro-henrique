@@ -352,3 +352,5 @@ function renderCultureAndSummary(povos){
     `;
   }
 }
+
+
