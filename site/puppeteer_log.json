@@ -1,0 +1,6 @@
+[
+  {
+    "type": "fatal",
+    "error": "Error: Failed to launch the browser process:  Code: null\n\nstderr:\n\n\nTROUBLESHOOTING: https://pptr.dev/troubleshooting\n\n    at ChildProcess.onClose (/workspaces/pedro-henrique/node_modules/@puppeteer/browsers/lib/cjs/launch.js:340:24)\n    at ChildProcess.emit (node:events:530:35)\n    at ChildProcess._handle.onexit (node:internal/child_process:293:12)"
+  }
+]

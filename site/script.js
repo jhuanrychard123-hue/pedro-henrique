@@ -84,12 +84,34 @@ function initGallery(povos){
 function initCommitForm(){
   const form = document.getElementById('commit-form');
   const list = document.getElementById('commit-list');
+  const storageKey = 'vt_commits';
+  // carregar comentários salvos
+  let commits = [];
+  try{ commits = JSON.parse(localStorage.getItem(storageKey) || '[]'); }catch(e){ commits = []; }
+  function renderCommits(){ list.innerHTML = ''; commits.forEach(c=>{ const li = document.createElement('li'); li.textContent = c; list.appendChild(li); }); }
+  renderCommits();
+
+  // botão para limpar comentários salvos
+  const clearBtn = document.createElement('button'); clearBtn.type = 'button'; clearBtn.className = 'commit-clear'; clearBtn.textContent = 'Limpar comentários';
+  clearBtn.addEventListener('click', ()=>{
+    commits = []; localStorage.removeItem(storageKey); renderCommits(); clearBtn.disabled = true;
+  });
+  // desabilitar se já estiver vazio
+  if(!commits.length) clearBtn.disabled = true;
+  // inserir logo após o formulário
+  try{ form.insertAdjacentElement('afterend', clearBtn); }catch(e){}
+
   form.addEventListener('submit', e=>{
     e.preventDefault();
-    const txt = document.getElementById('commit').value.trim();
+    const txtEl = document.getElementById('commit');
+    const txt = txtEl.value.trim();
     if(!txt) return;
-    const li = document.createElement('li'); li.textContent = txt; list.prepend(li);
+    // salvar no topo e persistir
+    commits.unshift(txt);
+    try{ localStorage.setItem(storageKey, JSON.stringify(commits.slice(0,50))); }catch(e){ if(window._vt_verbose) console.warn('saving commits failed',e); }
+    renderCommits();
     form.reset();
+    clearBtn.disabled = false;
     // Notificação para leitores de tela
     const live = document.getElementById('sr-live');
     if(live) live.textContent = 'Compromisso enviado.';
@@ -98,16 +120,18 @@ function initCommitForm(){
 
 function initQuiz(){
   const root = document.getElementById('quiz-root');
+  // Perguntas mais desafiadoras/educativas
   const questions = [
-    {q:'Qual povo fala língua Tupi-Guarani?',options:['Yanomami','Guarani','Tikuna'],a:1},
-    {q:'Qual região do Brasil tem povos amazônicos tradicionais?',options:['Nordeste','Norte','Sul'],a:1},
-    {q:'Qual atividade é tradicional em muitas culturas indígenas?',options:['Pintura corporal','Surf','Esqui'],a:0},
-    {q:'Qual povo é tradicionalmente associado ao estado do Pará e áreas de floresta?',options:['Xavante','Yanomami','Kaiowá'],a:1},
-    {q:'Qual desses é um manejo tradicional de plantas/rotação usado por grupos indígenas?',options:['Milpa/roça agroflorestal','Sistema de irrigação industrial','Monocultura de soja'],a:0},
-    {q:'Muitas línguas indígenas do Brasil pertencem a grandes famílias. Qual é uma dessas famílias?',options:['Tupi-Guarani','Germânica','Romance'],a:0},
-    {q:'Qual item é comumente usado em rituais e pintura corporal tradicional?',options:['Tintas de jenipapo ou urucum','Tinta spray moderna','Tinta automotiva'],a:0},
-    {q:'Como devemos proceder antes de usar imagens reais de comunidades?',options:['Pedir autorização e creditar','Usar sem permissão','Vender sem avisar'],a:0},
-    {q:'Qual é uma prática apropriada ao citar saberes tradicionais em projetos educativos?',options:['Incluir crédito e contexto','Apropriar sem citar','Ignorar origens'],a:0}
+    {q:'Qual família linguística inclui línguas como o Nheengatu e o Guarani tradicionalmente?',options:['Arawak','Tupi-Guarani','Macro-Jê'],a:1},
+    {q:'Qual técnica tradicional contribui para manter a diversidade da floresta e solos férteis?',options:['Roça agroflorestal / policultura','Monocultura extensiva','Desmatamento por gravidade'],a:0},
+    {q:'O que caracteriza um sistema de manejo tradicional chamado "agrofloresta"?',options:['Combinação de espécies alimentares e arbóreas em policultura','Uso só de árvores nativas sem cultivo','Fabricação industrial de adubo'],a:0},
+    {q:'Qual órgão público brasileiro é responsável por políticas indigenistas?',options:['FUNAI','IBGE','MRE'],a:0},
+    {q:'Qual prática é recomendada ao pesquisar saberes de comunidades indígenas?',options:['Obter consentimento prévio e atribuir crédito','Divulgar sem consultar','Profite sem retorno'],a:0},
+    {q:'Qual é um exemplo de ação que ajuda a conservar variedades locais de cultivo?',options:['Banco de sementes comunitário','Substituir por híbridos comerciais','Queimar a área'],a:0},
+    {q:'Entre as opções, qual NÃO é uma família linguística das línguas indígenas do Brasil?',options:['Tupi-Guarani','Aruák','Romance'],a:2},
+    {q:'A demarcação de terras indígenas tem como objetivo principal:',options:['Garantir territórios e modos de vida tradicionais','Aumentar a produção industrial','Reduzir a diversidade linguística'],a:0},
+    {q:'Qual técnica tradicional pode aumentar a fertilidade do solo de forma sustentável?',options:['Compostagem e rotação de culturas','Uso exclusivo de fertilizantes sintéticos','Esgotar a terra por monocultura'],a:0},
+    {q:'Ao publicar materiais com comunidades, o passo ético essencial é:',options:['Pedir autorização e reconhecer créditos culturais','Ignorar consentimento','Divulgar sem contexto'],a:0}
   ];
   let idx=0,score=0;
   function render(){
