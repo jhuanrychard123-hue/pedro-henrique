@@ -235,14 +235,22 @@ function initModal(){
   const gallery = document.getElementById('modal-gallery');
   const caption = document.getElementById('modal-caption');
   const close = document.getElementById('modal-close');
-  close.addEventListener('click', ()=>{ modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); });
+  // restaura foco ao elemento anterior ao fechar
+  let _lastFocused = null;
+  close.addEventListener('click', ()=>{ modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); if(_lastFocused && _lastFocused.focus) _lastFocused.focus(); _lastFocused = null; });
   // Fechar clicando fora do conteúdo
   modal.addEventListener('click', (e)=>{
     if(e.target === modal){ modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); }
   });
+  // fechar com Escape e restaurar foco
+  document.addEventListener('keydown', (e)=>{
+    if(e.key === 'Escape' && modal.classList.contains('open')){
+      modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); if(_lastFocused && _lastFocused.focus) _lastFocused.focus(); _lastFocused = null; }
+  });
   document.addEventListener('click', (e)=>{
     if(e.target.classList.contains('open-gallery')){
       const name = e.target.dataset.nome;
+      _lastFocused = document.activeElement;
       openGalleryByName(name);
     }
   });
@@ -257,7 +265,9 @@ function initModal(){
   const cap = p.caption ? p.caption : '';
   const cred = p.credit ? ('Crédito: ' + p.credit) : '';
   caption.textContent = [cap, cred].filter(Boolean).join(' — ');
-  modal.classList.add('open'); modal.setAttribute('aria-hidden','false');
+      modal.classList.add('open'); modal.setAttribute('aria-hidden','false');
+      // mover foco para o botão fechar para acessibilidade
+      try{ close.focus(); }catch(e){ /* noop */ }
       if(window._vt_verbose) console.log('[Vt] gallery opened for', name, p.imagens);
     });
   }
