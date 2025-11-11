@@ -101,7 +101,13 @@ function initQuiz(){
   const questions = [
     {q:'Qual povo fala língua Tupi-Guarani?',options:['Yanomami','Guarani','Tikuna'],a:1},
     {q:'Qual região do Brasil tem povos amazônicos tradicionais?',options:['Nordeste','Norte','Sul'],a:1},
-    {q:'Qual atividade é tradicional em muitas culturas indígenas?',options:['Pintura corporal','Surf','Esqui'],a:0}
+    {q:'Qual atividade é tradicional em muitas culturas indígenas?',options:['Pintura corporal','Surf','Esqui'],a:0},
+    {q:'Qual povo é tradicionalmente associado ao estado do Pará e áreas de floresta?',options:['Xavante','Yanomami','Kaiowá'],a:1},
+    {q:'Qual desses é um manejo tradicional de plantas/rotação usado por grupos indígenas?',options:['Milpa/roça agroflorestal','Sistema de irrigação industrial','Monocultura de soja'],a:0},
+    {q:'Muitas línguas indígenas do Brasil pertencem a grandes famílias. Qual é uma dessas famílias?',options:['Tupi-Guarani','Germânica','Romance'],a:0},
+    {q:'Qual item é comumente usado em rituais e pintura corporal tradicional?',options:['Tintas de jenipapo ou urucum','Tinta spray moderna','Tinta automotiva'],a:0},
+    {q:'Como devemos proceder antes de usar imagens reais de comunidades?',options:['Pedir autorização e creditar','Usar sem permissão','Vender sem avisar'],a:0},
+    {q:'Qual é uma prática apropriada ao citar saberes tradicionais em projetos educativos?',options:['Incluir crédito e contexto','Apropriar sem citar','Ignorar origens'],a:0}
   ];
   let idx=0,score=0;
   function render(){
