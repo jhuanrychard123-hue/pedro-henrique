@@ -40,15 +40,17 @@ function initMap(povos){
   window._vt_markers = window._vt_markers || {};
   povos.forEach(p =>{
     const marker = L.marker([p.lat,p.lon]).addTo(map);
+    const firstImg = (p.imagens && p.imagens[0]) ? p.imagens[0] : '';
     const curios = p.curiosidade ? `<p><strong>Curiosidade:</strong> ${p.curiosidade}</p>` : '';
-    // removemos imagens do popup para este protótipo; mostramos apenas texto/legenda
+    // mostrar imagem no popup quando disponível; caso contrário, indicar que imagem foi removida
+    const imgHtml = firstImg ? `<img src="${firstImg}" alt="${p.nome}" style="width:100%;height:auto;border-radius:6px;margin-top:.4rem">` : `<div class="no-image popup-no-image">Imagem removida neste protótipo</div>`;
     const html = `
       <div class="popup">
         <h3>${p.nome}</h3>
         <p><strong>Região:</strong> ${p.regiao} — <strong>Língua:</strong> ${p.lingua}</p>
         <p>${p.resumo}</p>
         ${curios}
-        <div class="no-image popup-no-image">Imagem removida neste protótipo</div>
+        ${imgHtml}
         <p><button class="open-gallery" data-nome="${p.nome}">Abrir galeria</button></p>
       </div>`;
     marker.bindPopup(html);
